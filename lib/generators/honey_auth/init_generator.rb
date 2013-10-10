@@ -10,8 +10,12 @@ module HoneyAuth
       source_root File.expand_path('../templates', __FILE__)
 
       def create_migration_file
-        template 'user_model.rb', 'app/models/user.rb'
         migration_template 'user_migration.rb', 'db/migrate/create_users'
+        template 'user_model.rb', 'app/models/user.rb'
+        template 'accounts_controller.rb', 'app/controllers/accounts_controller.rb'
+        template 'session_controller.rb', 'app/controllers/session_controller.rb'
+        directory 'views/sessions', 'app/views/sessions'
+        directory 'views/accounts', 'app/views/accounts'
       end
     end
 
