@@ -6,17 +6,11 @@ class AccountsController < ApplicationController
   end
 
   def create
-    role = params[:user].delete(:role)
+    @user = User.new(user_params)
 
-    unless @user = User.find_by_id(session[:temporary_user_id])
-      @user = User.new
-    end
-
-    @user.attributes = user_params
-
-    if @user.after_initialize!
+    if @user.save
       sign_in @user
-      redirect_to root_path
+      redirect_to signed_in_path(:created)
     else
       render 'accounts/new'
     end
